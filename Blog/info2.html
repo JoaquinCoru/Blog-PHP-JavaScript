@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>Info2</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="estilos/normalize.css">
+        <link rel="stylesheet" href="estilos/estilos2.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <header class="row">
+                <div class="col-lg-4" id="links">                    
+                    <br>
+                    <ul>
+                        <li><a href="index.php"><h2>INICIO</h2></a></li>
+                        <li><a href="info1.html"><h2>INFO1</h2></a></li>
+                        <li><a href="info2.html"><h2>INFO2</h2></a></li>
+                    </ul>
+                    <br>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-7" id="titulo">
+                    <h1 style="margin-top:12%; font-size:50px;">BLOG</h1>
+                  </div>
+            </header>
+            <div id="contenedor">
+
+            </div>
+            
+            <hr style="border:solid 2px;color:orange;">
+            <div id="insertar" class="hidden">        
+                <form action="insertar.php" method="POST" enctype="multipart/form-data">
+                    <div class="row">   
+                        <div class="col-lg-1" ></div>              
+                        <div class="col-lg-6">
+                            <h2>IMAGENES</h2>
+                            <label>SELECCIONAR: </label>
+                            <input type="file" name="imagen">
+                            <br><br>
+                            <input type="submit" name="insertar" class=" btn btn-md btn-primary " style="margin-left:25%;" value="SUBIR"> 
+                            <input type="submit" name="borrar" class=" btn btn-md btn-primary " style="margin-left:5%;"  value="BORRAR">     
+                        </div>
+                        <div class="col-lg-5">
+                            <h2>COMENTARIOS</h2>
+                            <br>
+                            <label>TITULO: </label>
+                            <input type="text"  style="width:60%; float:right;" name="titular">
+                            <br>
+                            <label>MENSAJE: </label>
+                            <textarea name="mensaje" style="width:60%; float:right;"></textarea>                            
+                        </div>        
+                    </div>               
+                </form>
+            </div>
+
+            <footer>
+                <hr style="border:solid 2px;color:orange;">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p id="copyright"> </p>
+                    </div>
+                    <div class="col-lg-6">
+                        <p id="fecha"> </p>
+                    </div>
+
+                </div>    
+            </footer>
+
+        </div>
+        <script>
+            //Mostrar formulario
+
+            if (sessionStorage.getItem("PASSWORD")=='admin'){
+                document.getElementById("insertar").className='visible';
+            }
+
+            // Recoger posts de la BBDD
+            var xhr=new XMLHttpRequest();
+            xhr.open('GET','blog.php');
+            xhr.onload=function(){
+                if(xhr.status==200){
+                    var json=xhr.responseText;
+                    console.log(json);
+                    posts=JSON.parse(json); //<-- convierte a objeto
+                    for (a=0;posts[a];a++){
+                        document.getElementById("contenedor").innerHTML+=`
+                            <article class="row" >            
+                                <div class="col-lg-4">
+                                        <img class="img-thumbnail" src="`+posts[a].imagen +`" alt="">                        
+                                </div>                  
+                                <div class="col-lg-8">
+                                    <h2 class="post-title">
+                                    ` +posts[a].titulo+   `       
+                                    </h2>
+                                    <p class="post-contenido text-justify">`
+                                        + posts[a].mensaje+
+                                    `</p>
+
+                                    <div class="contenedor-botones">
+                                        <a href="#" class="btn btn-primary">Leer Mas</a>
+                                        <a href="#" class="btn btn-success">Comentarios <span class="badge">20</span></a>
+                                    </div>
+                                </div>     
+                            </article> `;                      
+                    }
+
+                 }else{
+                    console.log("EXISTE UN ERROR DE TIPO: "+xhr.status);
+                }
+            }
+            xhr.send();
+        
+        </script>
+        <script src="scripts/fecha.js"></script>   
+    </body>
+
+</html>

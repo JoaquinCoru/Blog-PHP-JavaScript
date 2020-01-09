@@ -1,0 +1,103 @@
+/*Pagina inicio*/
+body{
+    background-color:rgba(255, 255, 0, 0.685);
+}
+
+#header1{
+    height: 23%;
+    text-align: center;
+    background-color: rgb(0, 81, 255);
+    margin-top: 2%;
+    padding: 2% 0;
+    color: white;
+}
+
+.cabecera{
+    margin-top:2%;
+}
+ul{
+    margin: 0 auto;
+}
+
+li{
+    padding:0 20px ;
+}
+li:hover{
+    background-color: blue;
+}
+.active{
+    background-color: rgb(119, 0, 255);
+}
+
+.menu{
+    background-color: rgb(0, 81, 255);
+    text-align: center;
+    box-sizing: border-box;
+    padding:  2% 2%;
+}
+nav{
+    background-color: cadetblue;
+    color: black;
+}
+label{
+    float: left;
+}
+input[type="text"],[type="password"]{
+    float: right;
+    border-radius: 5px;
+}
+button{
+    margin: 0 auto;
+}
+
+.hidden{
+    display: none;
+}
+
+.visible{
+    display:flex;
+}
+#mensaje{
+    height: 50%;
+    color: white;
+    font-size: 20px;
+}
+
+#salida{
+    text-align: center;
+}
+
+h2{
+    text-align: center;
+    font-weight: bolder;
+}
+
+#novedades{
+    background-color: rgb(0, 255, 255);
+    padding: 5px 30px;
+    text-align: justify;
+}
+
+.thumbnail{
+    height: 300px;
+    border: solid 3px white;
+    border-radius: 10px;
+    margin-top: 5%;
+    filter: drop-shadow(8px 8px 10px gray);
+}
+
+h4{
+    text-align: center;
+}
+#fecha{
+    float: right;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+#copyright{
+    float: left;
+    font-size: 20px;
+    font-weight: bolder; 
+}
+

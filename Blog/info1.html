@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>Inicio</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="estilos/normalize.css">
+        <link rel="stylesheet" href="estilos/estilos2.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    </head>
+
+    <body >
+        <div class="container">
+            <header class="row">
+                <div class="col-lg-4" id="links">                    
+                    <br>
+                    <ul>
+                        <li><a href="index.php"><h2>INICIO</h2></a></li>
+                        <li><a href="info1.html"><h2>INFO1</h2></a></li>
+                        <li><a href="info2.html"><h2>INFO2</h2></a></li>
+                    </ul>
+                    <br>
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-7" id="titulo">
+                    <h2 style="margin-top:12%;">PÁGINA DE ARTÍCULOS</h2>
+                    <p style="font-size:20px;">Los 3 primeros de la Base de Datos</p>
+                </div>
+            </header>
+            <div id="contenido">
+
+            </div>
+
+            <footer>
+                <hr style="border:solid 2px;color:blue;">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <p id="copyright"> </p>
+                    </div>
+                    <div class="col-lg-6">
+                        <p id="fecha"> </p>
+                    </div>
+                </div>    
+            </footer>
+        </div>
+        <script>
+            var xhr=new XMLHttpRequest();
+            xhr.open('GET','articulos.php',true);
+            xhr.onload=function(){
+                if(xhr.status==200){
+                    var json=xhr.responseText;
+                    console.log(json);  
+                    articulos=JSON.parse(json); //<-- convierte a objeto
+                    var i=0;
+                    for (a=0;articulos[a];a++){
+                        document.getElementById("contenido").innerHTML+=`
+                            <article class="row" >            
+                                <div class="col-lg-4">
+                                        <img class="img-thumbnail" src="`+articulos[a].imagen1 +`" alt="">                        
+                                        <img style="width:100%; margin-top:2%;" class="img-thumbnail" src="`+articulos[a].imagen2 +`" alt="">
+                                </div>
+                                
+                                <div class="col-lg-8">
+                                    <h2 class="post-title">
+                                    ` +articulos[a].titulo+   `       
+                                    </h2>
+                                    <p><span class="post-fecha">`+ articulos[a].fecha +`</span> </p>  
+                                    <p class="post-contenido text-justify">`
+                                        + articulos[a].cuerpo+
+                                    `</p>
+
+                                    <div class="contenedor-botones">
+                                        <a href="#" class="btn btn-primary">Leer Mas</a>
+                                        <a href="#" class="btn btn-success">Comentarios <span class="badge">20</span></a>
+                                    </div>
+                                </div>     
+                            </article> `;
+                            i++;
+                            if (i==3){
+                                break;
+                            }
+                        }          
+
+                }else{
+                    console.log("EXISTE UN ERROR DE TIPO: "+xhr.status);
+                }
+        }
+        xhr.send();
+                     
+        </script>
+        <script src="scripts/fecha.js"></script>   
+    <body>
+
+</html>
